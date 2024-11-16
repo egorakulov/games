@@ -12,10 +12,12 @@ Built using Java, a snake clone that allows the user to press y to restart after
 
 #### Pong
 
-Currently building in Java, a full replica of the classic 2-player Pong game. 
+Built in Java, a replica of the classic Pong game. Requires two players. Complete with an introductory screen that explains rules and how to operate the program, and a game over screen with which the user can play again. Runs at 60 frames per second.  
 
 ## My Next Project
 
 #### Game of Life
 
 I want to build the Game of Life, in Java, Python, C++, and Typescript. I want to have a window where you can zoom in and out, look at different parts of the map, etc.  
+
+I am currently developing the Java version. 
