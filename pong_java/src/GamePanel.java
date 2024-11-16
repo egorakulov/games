@@ -10,7 +10,7 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int PADDLE_HEIGHT = 75;
     static final int PADDLE_WIDTH = 10;
     static final int FPS = 1000/60;
-    static final int TARGET_SCORE = 1;
+    static final int TARGET_SCORE = 7;
     private static Player p1;
     private static Player p2;
     private static Ball b;
@@ -81,8 +81,34 @@ public class GamePanel extends JPanel implements ActionListener{
         // player 1 use w, s to move up down
         // player 2 use up, down arrow keys to move up down
         // press y to start
-        g.setColor(Color.yellow);
-        g.fillRect(100, 100, 100, 100);
+        g.setColor(Color.pink);
+        g.setFont(new Font("Helvetica", Font.BOLD, 75));
+        FontMetrics metrics_welcome = getFontMetrics(g.getFont());
+        g.drawString("Welcome to pong!",
+                (SCREEN_WIDTH - metrics_welcome.stringWidth("Welcome to pong!")) / 2,
+                    100);
+        g.setColor(Color.white);
+        g.setFont(new Font("Helvetica", Font.PLAIN, 50));
+        FontMetrics metrics_text = getFontMetrics(g.getFont());
+        g.drawString("by Egor Akulov",
+                (SCREEN_WIDTH - metrics_text.stringWidth("by Egor Akulov")) / 2,
+                175);
+        g.drawString("Player 1                           Player 2",
+                (SCREEN_WIDTH - metrics_text.stringWidth("Player 1                           Player 2")) / 2,
+                250);
+        g.drawString("W/S        CONTROLS   UP/DOWN",
+                (SCREEN_WIDTH - metrics_text.stringWidth("  W/S   CONTROLS  UP/DOWN ")) / 2,
+                325);
+        g.setColor(Color.pink);
+        g.drawString("First to " + TARGET_SCORE + " wins!",
+                (SCREEN_WIDTH - metrics_text.stringWidth("First to " + TARGET_SCORE + " wins!")) / 2,
+                400);
+        g.setColor(Color.gray);
+        g.setFont(new Font("Helvetica", Font.ITALIC, 50));
+        FontMetrics metrics_final = getFontMetrics(g.getFont());
+        g.drawString("Press y to start",
+                (SCREEN_WIDTH - metrics_final.stringWidth("Press y to start")) / 2,
+                475);
     }
 
     public static void move() {
@@ -136,6 +162,7 @@ public class GamePanel extends JPanel implements ActionListener{
             Thread.sleep(500);
             p2.addScore();
             resetBall('L');
+            resetPaddles();
         }
 
         // bounce off right side
@@ -148,6 +175,7 @@ public class GamePanel extends JPanel implements ActionListener{
             Thread.sleep(500);
             p1.addScore();
             resetBall('R');
+            resetPaddles();
         }
     }
 
@@ -156,6 +184,11 @@ public class GamePanel extends JPanel implements ActionListener{
         b.y = (SCREEN_HEIGHT - BALL_SIZE) / 2;
         b.xDir = loser;
         b.yDir = 'U';
+    }
+
+    public void resetPaddles() {
+        p1.setyPosition((SCREEN_HEIGHT - PADDLE_HEIGHT) / 2);
+        p2.setyPosition((SCREEN_HEIGHT - PADDLE_HEIGHT) / 2);
     }
 
     public void checkWin() {

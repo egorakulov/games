@@ -24,6 +24,11 @@ public class Player {
     }
 
 
+    public void setyPosition(int pos) {
+        this.yPosition = pos;
+    }
+
+
     public void movePaddleUp() {
         this.yPosition -= paddleSpeed;
     }
