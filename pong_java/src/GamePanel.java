@@ -4,12 +4,14 @@ import java.awt.event.*;
 public class GamePanel extends JPanel implements ActionListener{
     static final int SCREEN_WIDTH = 1200;
     static final int SCREEN_HEIGHT = 600;
-    static final int MOVEMENT_SPEED = 100;
+    static final int MOVEMENT_SPEED = 3;
     static final int PADDLE_HEIGHT = 75;
     static final int PADDLE_WIDTH = 5;
-    private Player p1;
-    private Player p2;
+    static final int FPS = 1000/60;
+    private static Player p1;
+    private static Player p2;
     boolean running = false;
+    Timer timer;
 
     GamePanel() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -21,6 +23,8 @@ public class GamePanel extends JPanel implements ActionListener{
 
     public void startGame() {
         running = true;
+        timer = new Timer(FPS, this);
+        timer.start();
         p1 = new Player(0, (SCREEN_HEIGHT - PADDLE_HEIGHT) / 2,
                 MOVEMENT_SPEED);
         p2 = new Player(SCREEN_WIDTH - PADDLE_WIDTH,
@@ -30,7 +34,6 @@ public class GamePanel extends JPanel implements ActionListener{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
-        System.out.println("paintComponent");
     }
 
     public void draw(Graphics g) {
@@ -43,16 +46,16 @@ public class GamePanel extends JPanel implements ActionListener{
         }
     }
 
-    public void move() {
-        if (p2.getDirection() == 'U') {
+    public static void move() {
+        if (p2.direction == 'U') {
             p2.movePaddleUp();
-        } else if (p2.getDirection() == 'D') {
+        } else if (p2.direction == 'D') {
             p2.movePaddleDown();
         }
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("ACTION");
         if (running) {
             move();
         }
@@ -64,9 +67,15 @@ public class GamePanel extends JPanel implements ActionListener{
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                 p2.setDirection('D');
-            }  else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            }  else if (e.getKeyCode() == KeyEvent.VK_UP) {
                 p2.setDirection('U');
-            } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_DOWN
+            || e.getKeyCode() == KeyEvent.VK_UP) {
                 p2.setDirection('N');
             }
         }

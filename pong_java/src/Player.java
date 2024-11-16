@@ -3,7 +3,7 @@ public class Player {
     private int yPosition;
     private int score;
     private int paddleSpeed;
-    private char direction;
+    public char direction;
     Player(int x, int y, int speed) {
         this.xPosition = x;
         this.yPosition = y;
@@ -21,10 +21,6 @@ public class Player {
 
     public int getScore() {
         return score;
-    }
-
-    public int getDirection() {
-        return direction;
     }
 
 
