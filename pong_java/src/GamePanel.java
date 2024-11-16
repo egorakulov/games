@@ -10,12 +10,14 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int PADDLE_HEIGHT = 75;
     static final int PADDLE_WIDTH = 10;
     static final int FPS = 1000/60;
+    static final int TARGET_SCORE = 1;
     private static Player p1;
     private static Player p2;
     private static Ball b;
     static final int BALL_SIZE = 25;
     static final int BALL_SPEED = 8;
     boolean running = false;
+    boolean intro = true;
     Timer timer;
 
     GamePanel() {
@@ -23,8 +25,8 @@ public class GamePanel extends JPanel implements ActionListener{
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
-        startGame();
     }
+
 
     public void startGame() {
         running = true;
@@ -43,30 +45,44 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void draw(Graphics g) {
-        if (running) {
-            // drawing players
-            g.setColor(Color.white);
-            g.fillRect(p1.getxPosition(), p1.getyPosition(),
-                    PADDLE_WIDTH, PADDLE_HEIGHT);
-            g.fillRect(p2.getxPosition(), p2.getyPosition(),
-                    PADDLE_WIDTH, PADDLE_HEIGHT);
-
-            // drawing middle line
-            g.drawLine(SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT);
-
-            // drawing score board
-            g.setFont(new Font("Helvetica", Font.PLAIN, 65));
-            FontMetrics metrics = getFontMetrics(g.getFont());
-            g.drawString(p1.getScore() + "     " + p2.getScore(),
-                    (SCREEN_WIDTH - metrics.stringWidth(p1.getScore() + "     " + p2.getScore())) / 2,
-                    g.getFont().getSize());
-
-            // drawing ball
-            g.setColor(Color.red);
-            g.fillOval(b.x, b.y, BALL_SIZE, BALL_SIZE);
+        if (intro) {
+            drawIntro(g);
         } else {
-            gameOver(g);
+            if (running) {
+                // drawing players
+                g.setColor(Color.white);
+                g.fillRect(p1.getxPosition(), p1.getyPosition(),
+                        PADDLE_WIDTH, PADDLE_HEIGHT);
+                g.fillRect(p2.getxPosition(), p2.getyPosition(),
+                        PADDLE_WIDTH, PADDLE_HEIGHT);
+
+                // drawing middle line
+                g.drawLine(SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT);
+
+                // drawing score board
+                g.setFont(new Font("Helvetica", Font.PLAIN, 65));
+                FontMetrics metrics = getFontMetrics(g.getFont());
+                g.drawString(p1.getScore() + "     " + p2.getScore(),
+                        (SCREEN_WIDTH - metrics.stringWidth(p1.getScore() + "     " + p2.getScore())) / 2,
+                        g.getFont().getSize());
+
+                // drawing ball
+                g.setColor(Color.red);
+                g.fillOval(b.x, b.y, BALL_SIZE, BALL_SIZE);
+            } else {
+                gameOver(g);
+            }
         }
+    }
+
+    public void drawIntro(Graphics g) {
+        // welcome to pong!
+        // player 1 is on the left, player 2 on the right
+        // player 1 use w, s to move up down
+        // player 2 use up, down arrow keys to move up down
+        // press y to start
+        g.setColor(Color.yellow);
+        g.fillRect(100, 100, 100, 100);
     }
 
     public static void move() {
@@ -143,14 +159,35 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void checkWin() {
-        if (p1.getScore() == 11 || p2.getScore() == 11) {
+        if (p1.getScore() == TARGET_SCORE || p2.getScore() == TARGET_SCORE) {
             running = false;
         }
     }
 
     public void gameOver(Graphics g) {
+        timer.stop();
+        int winner;
+        if (p1.getScore() == TARGET_SCORE) {
+            winner = 1;
+        } else {
+            winner = 2;
+        }
+        g.setColor(Color.white);
+        g.setFont(new Font("Helvetica", Font.BOLD, 100));
+        FontMetrics metrics1 = getFontMetrics(g.getFont());
+        g.drawString("Player " + winner + " won!",
+                (SCREEN_WIDTH - metrics1.stringWidth("Player " + winner + " won!")) / 2,
+                (SCREEN_HEIGHT - g.getFont().getSize()) / 2);
+
+        g.setColor(Color.gray);
+        g.setFont(new Font("Helvetica", Font.ITALIC, 50));
+        FontMetrics metrics2 = getFontMetrics(g.getFont());
+        g.drawString("Press y to play again",
+                (SCREEN_WIDTH - metrics2.stringWidth("Press y to play again")) / 2,
+                (SCREEN_HEIGHT / 2) + g.getFont().getSize());
 
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -169,18 +206,31 @@ public class GamePanel extends JPanel implements ActionListener{
     public class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
+            if (intro) {
+                if (e.getKeyCode() == KeyEvent.VK_Y) {
+                    intro = false;
+                    startGame();
+                }
+            }
             // checking for p1 input
-            if (e.getKeyCode() == KeyEvent.VK_W) {
+            if (running && e.getKeyCode() == KeyEvent.VK_W) {
                 p1.setDirection('U');
-            } else if (e.getKeyCode() == KeyEvent.VK_S) {
+            } else if (running && e.getKeyCode() == KeyEvent.VK_S) {
                 p1.setDirection('D');
             }
 
             // checking for p2 input
-            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (running && e.getKeyCode() == KeyEvent.VK_DOWN) {
                 p2.setDirection('D');
-            }  else if (e.getKeyCode() == KeyEvent.VK_UP) {
+            }  else if (running && e.getKeyCode() == KeyEvent.VK_UP) {
                 p2.setDirection('U');
+            }
+
+            // resetting the game
+            if (!running) {
+                if (e.getKeyCode() == KeyEvent.VK_Y) {
+                    startGame();
+                }
             }
         }
 
