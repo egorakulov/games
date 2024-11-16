@@ -4,12 +4,15 @@ import java.awt.event.*;
 public class GamePanel extends JPanel implements ActionListener{
     static final int SCREEN_WIDTH = 1200;
     static final int SCREEN_HEIGHT = 600;
-    static final int MOVEMENT_SPEED = 3;
+    static final int MOVEMENT_SPEED = 5;
     static final int PADDLE_HEIGHT = 75;
-    static final int PADDLE_WIDTH = 5;
+    static final int PADDLE_WIDTH = 10;
     static final int FPS = 1000/60;
     private static Player p1;
     private static Player p2;
+    private static Ball b;
+    static final int BALL_SIZE = 25;
+    static final int BALL_SPEED = 5;
     boolean running = false;
     Timer timer;
 
@@ -29,6 +32,7 @@ public class GamePanel extends JPanel implements ActionListener{
                 MOVEMENT_SPEED);
         p2 = new Player(SCREEN_WIDTH - PADDLE_WIDTH,
                 (SCREEN_HEIGHT - PADDLE_HEIGHT) / 2, MOVEMENT_SPEED);
+        b = new Ball((SCREEN_WIDTH - BALL_SIZE) / 2, (SCREEN_HEIGHT - BALL_SIZE) / 2);
     }
 
     public void paintComponent(Graphics g) {
@@ -38,15 +42,31 @@ public class GamePanel extends JPanel implements ActionListener{
 
     public void draw(Graphics g) {
         if (running) {
+            // drawing players
             g.setColor(Color.white);
             g.fillRect(p1.getxPosition(), p1.getyPosition(),
                     PADDLE_WIDTH, PADDLE_HEIGHT);
             g.fillRect(p2.getxPosition(), p2.getyPosition(),
                     PADDLE_WIDTH, PADDLE_HEIGHT);
+
+            // drawing middle line
+            g.drawLine(SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT);
+
+            // drawing score board
+            g.setFont(new Font("Helvetica", Font.PLAIN, 65));
+            FontMetrics metrics = getFontMetrics(g.getFont());
+            g.drawString(p1.getScore() + "     " + p2.getScore(),
+                    (SCREEN_WIDTH - metrics.stringWidth(p1.getScore() + "     " + p2.getScore())) / 2,
+                    g.getFont().getSize());
+
+            // drawing ball
+            g.setColor(Color.red);
+            g.fillOval(b.x, b.y, BALL_SIZE, BALL_SIZE);
         }
     }
 
     public static void move() {
+        // moving players
         if (p1.direction == 'U' && p1.getyPosition() > 0) {
             p1.movePaddleUp();
         } else if (p1.direction == 'D' && p1.getyPosition() < SCREEN_HEIGHT - PADDLE_HEIGHT) {
@@ -57,6 +77,37 @@ public class GamePanel extends JPanel implements ActionListener{
             p2.movePaddleUp();
         } else if (p2.direction == 'D' && p2.getyPosition() < SCREEN_HEIGHT - PADDLE_HEIGHT) {
             p2.movePaddleDown();
+        }
+
+        // moving ball
+        moveBall();
+    }
+
+    public static void moveBall() {
+        // making the ball bounce off walls
+        if (b.x <= 0) {
+            b.xDir = 'R';
+        } else if (b.x >= SCREEN_WIDTH - BALL_SIZE) {
+            b.xDir = 'L';
+        }
+        if (b.y <= 0) {
+            b.yDir = 'D';
+        } else if (b.y >= SCREEN_HEIGHT - BALL_SIZE) {
+            b.yDir = 'U';
+        }
+
+        // checking L->R movement
+        if (b.xDir == 'L') {
+            b.x -= BALL_SPEED;
+        } else if (b.xDir == 'R') {
+            b.x += BALL_SPEED;
+        }
+
+        // checking U->D movement
+        if (b.yDir == 'U') {
+            b.y -= BALL_SPEED;
+        } else if (b.yDir == 'D') {
+            b.y += BALL_SPEED;
         }
     }
 
