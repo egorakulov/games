@@ -47,9 +47,15 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public static void move() {
-        if (p2.direction == 'U') {
+        if (p1.direction == 'U' && p1.getyPosition() > 0) {
+            p1.movePaddleUp();
+        } else if (p1.direction == 'D' && p1.getyPosition() < SCREEN_HEIGHT - PADDLE_HEIGHT) {
+            p1.movePaddleDown();
+        }
+
+        if (p2.direction == 'U' && p2.getyPosition() > 0) {
             p2.movePaddleUp();
-        } else if (p2.direction == 'D') {
+        } else if (p2.direction == 'D' && p2.getyPosition() < SCREEN_HEIGHT - PADDLE_HEIGHT) {
             p2.movePaddleDown();
         }
     }
@@ -65,6 +71,14 @@ public class GamePanel extends JPanel implements ActionListener{
     public class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
+            // checking for p1 input
+            if (e.getKeyCode() == KeyEvent.VK_W) {
+                p1.setDirection('U');
+            } else if (e.getKeyCode() == KeyEvent.VK_S) {
+                p1.setDirection('D');
+            }
+
+            // checking for p2 input
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                 p2.setDirection('D');
             }  else if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -72,8 +86,14 @@ public class GamePanel extends JPanel implements ActionListener{
             }
         }
 
+        // stopping player movement
         @Override
         public void keyReleased(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_S
+                    || e.getKeyCode() == KeyEvent.VK_W) {
+                p1.setDirection('N');
+            }
+
             if (e.getKeyCode() == KeyEvent.VK_DOWN
             || e.getKeyCode() == KeyEvent.VK_UP) {
                 p2.setDirection('N');
