@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.concurrent.TimeUnit;
+
 public class GamePanel extends JPanel implements ActionListener{
     static final int SCREEN_WIDTH = 1200;
     static final int SCREEN_HEIGHT = 600;
@@ -62,6 +64,8 @@ public class GamePanel extends JPanel implements ActionListener{
             // drawing ball
             g.setColor(Color.red);
             g.fillOval(b.x, b.y, BALL_SIZE, BALL_SIZE);
+        } else {
+            gameOver(g);
         }
     }
 
@@ -84,12 +88,7 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public static void moveBall() {
-        // making the ball bounce off walls
-        if (b.x <= 0) {
-            b.xDir = 'R';
-        } else if (b.x >= SCREEN_WIDTH - BALL_SIZE) {
-            b.xDir = 'L';
-        }
+        // off wall
         if (b.y <= 0) {
             b.yDir = 'D';
         } else if (b.y >= SCREEN_HEIGHT - BALL_SIZE) {
@@ -111,9 +110,56 @@ public class GamePanel extends JPanel implements ActionListener{
         }
     }
 
+    public void checkGoal() throws InterruptedException {
+        // bounce off left side
+        if (b.x < PADDLE_WIDTH && b.x > 0
+                && p1.getyPosition() < b.y && b.y < p1.getyPosition() + PADDLE_HEIGHT) {
+            b.xDir = 'R';
+        } else if ( b.x < 0) {
+            Thread.sleep(500);
+            p2.addScore();
+            resetBall('L');
+        }
+
+        // bounce off right side
+        if (b.x > SCREEN_WIDTH - BALL_SIZE - PADDLE_WIDTH &&
+                b.x < SCREEN_WIDTH - BALL_SIZE &&
+                p2.getyPosition() < b.y && b.y < p2.getyPosition() + PADDLE_HEIGHT) {
+            b.xDir = 'L';
+        } else if ( b.x > SCREEN_WIDTH - BALL_SIZE) {
+            Thread.sleep(500);
+            p1.addScore();
+            resetBall('R');
+        }
+    }
+
+    public void resetBall(char loser) {
+        b = new Ball((SCREEN_WIDTH - BALL_SIZE) / 2, (SCREEN_HEIGHT - BALL_SIZE) / 2);
+        b.x = (SCREEN_WIDTH - BALL_SIZE) / 2;
+        b.y = (SCREEN_HEIGHT - BALL_SIZE) / 2;
+        b.xDir = loser;
+        b.yDir = 'U';
+    }
+
+    public void checkWin() {
+        if (p1.getScore() == 11 || p2.getScore() == 11) {
+            running = false;
+        }
+    }
+
+    public void gameOver(Graphics g) {
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (running) {
+            try {
+                checkGoal();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+            checkWin();
             move();
         }
         repaint();
