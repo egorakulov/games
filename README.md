@@ -8,11 +8,15 @@ I want to build these games in a variety of languages, but as of right now I am 
 
 #### Snake
 
-Built using Java, a snake clone that allows the user to press y to restart after they have died, without every leaving the program. 
+Tech Stack: Java
+
+A snake clone that allows the user to press y to restart after they have died, without every leaving the program. 
 
 #### Pong
 
-Built in Java, a replica of the classic Pong game. Requires two players. Complete with an introductory screen that explains rules and how to operate the program, and a game over screen with which the user can play again. Runs at 60 frames per second.  
+Tech stack: Java
+
+A replica of the classic Pong game. Requires two players. Complete with an introductory screen that explains rules and how to operate the program, and a game over screen where the user can press y to play again. Runs at 60 frames per second.  
 
 ## My Next Project
 
