@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements ActionListener{
     private static Player p2;
     private static Ball b;
     static final int BALL_SIZE = 25;
-    static final int BALL_SPEED = 8;
+    static final int BALL_SPEED = 4;
     boolean running = false;
     boolean intro = true;
     Timer timer;

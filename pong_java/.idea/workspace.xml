@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d080a2de-f877-4105-91ee-7f6aed73ec8d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Game_of_Life/java/out/production/java/GamePanel$MyMouseAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Game_of_Life/java/out/production/java/GamePanel$MyMouseAdapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game_of_Life/java/out/production/java/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Game_of_Life/java/out/production/java/GamePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game_of_Life/java/src/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Game_of_Life/java/src/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/pong_java/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/pong_java/GamePanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PongGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PongGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../snake_java/out/production/snake_java/.GamePanel.java.swp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../snake_java/src/.GamePanel.java.swp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,12 +37,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
