@@ -8,19 +8,13 @@ Basically, I am experimenting with game development and seeing where it takes me
 
 I want to build these games in a variety of languages, but as of right now I am only sticking to java. 
 
+## My Current Project
+
+#### 2D Platformer
+
+I am currently following a Youtube tutorial on how to build a 2D platformer. After I finish this tutorial I will take what I apply and build my own.
+
 ## Games Built so Far
-
-#### Snake
-
-Tech Stack: Java
-
-A snake clone that allows the user to press y to restart after they have died, without every leaving the program. 
-
-#### Pong
-
-Tech stack: Java
-
-A replica of the classic Pong game. Requires two players. Complete with an introductory screen that explains rules and how to operate the program, and a game over screen where the user can press y to play again. Runs at 60 frames per second.  
 
 #### Game of Life
 
@@ -30,9 +24,18 @@ Conaly's Game of Life, complete with an intro screen explaining the rules and a 
 Can reset the simulation, stop it, and navigate between screens. 
 Spent way too long playing around in it creating cool patterns and seeing what happens. :)
 
+#### Pong
 
-## My Next Project
+Tech stack: Java
 
-#### 2D Platformer
+A replica of the classic Pong game. 
+Requires two players. 
+Complete with an introductory screen that explains rules and how to operate the program, and a game over screen where the user can press y to play again. 
+Runs at 60 frames per second.  
 
-I am currently following a Youtube tutorial on how to build a 2D platformer. After I finish this tutorial I will take what I apply and build my own.
+#### Snake
+
+Tech Stack: Java
+
+A snake clone that allows the user to press y to restart after they have died, without every leaving the program. 
+
