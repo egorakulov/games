@@ -1,8 +1,10 @@
 package main;
 
+import entity.Player;
+
 import javax.swing.*;
 import java.awt.*;
-import java.security.Key;
+
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -10,7 +12,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int originalTileSize = 16;
     final int scale = 3;  // scale for originalTileSize
     // actual tile size
-    final int tileSize = originalTileSize * scale;
+    public final int tileSize = originalTileSize * scale;
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol;
@@ -23,6 +25,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     // thread used to keep track of time in the game
     Thread gameThread;
+    Player player = new Player(this, kh);
 
     // DEFAULT PLAYER INFORMATION
     int playerX = 100;
@@ -85,18 +88,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update() {
-        if (kh.upPressed) {
-            playerY -= playerSpeed;
-        }
-        if (kh.downPressed) {
-            playerY += playerSpeed;
-        }
-        if (kh.leftPressed) {
-            playerX -= playerSpeed;
-        }
-        if (kh.rightPressed) {
-            playerX += playerSpeed;
-        }
+        player.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -106,9 +98,7 @@ public class GamePanel extends JPanel implements Runnable{
         // provides more control over geometry, coordinate transformations,
         // color management, and text layout
         Graphics2D g2 = (Graphics2D) g;
-
-        g2.setColor(Color.white);
-        g2.fillRect(playerX, playerY, tileSize, tileSize);
+        player.draw(g2);
 
         // good practice to save some memory
         g2.dispose();
