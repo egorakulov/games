@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     // thread used to keep track of time in the game
     Thread gameThread;
+    public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, kh);
 
 
