@@ -1,8 +1,12 @@
 package main;
 
+import entity.Player;
+import object.SuperObject;
+import tile.TileManager;
+
 import javax.swing.*;
 import java.awt.*;
-import java.security.Key;
+
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -10,24 +14,38 @@ public class GamePanel extends JPanel implements Runnable{
     final int originalTileSize = 16;
     final int scale = 3;  // scale for originalTileSize
     // actual tile size
-    final int tileSize = originalTileSize * scale;
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol;
-    final int screenHeight = tileSize * maxScreenRow;
+    public final int tileSize = originalTileSize * scale;
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol;
+    public final int screenHeight = tileSize * maxScreenRow;
+
+
+    // WORLD SETTINGS
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
 
     int FPS = 60;
 
+    TileManager tileM = new TileManager(this);
+
     // clock and key handler
     KeyHandler kh = new KeyHandler();
-
-    // thread used to keep track of time in the game
+    Sound music = new Sound();
+    Sound se = new Sound();
+    public CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
+    // thread used to keep ;track of time in the game
     Thread gameThread;
 
-    // DEFAULT PLAYER INFORMATION
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
+
+    // ENTITY AND OBJECT
+    public Player player = new Player(this, kh);
+    // how many objects we can have in our game at one time
+    // NOT how many different objects we can have
+    public SuperObject obj[] = new SuperObject[10];
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -38,6 +56,11 @@ public class GamePanel extends JPanel implements Runnable{
 
         this.addKeyListener(kh);
         this.setFocusable(true);
+    }
+
+    public void setUpGame() {
+        aSetter.setObject();
+        playMusic(0);
     }
 
     public void startGameThread() {
@@ -85,18 +108,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update() {
-        if (kh.upPressed) {
-            playerY -= playerSpeed;
-        }
-        if (kh.downPressed) {
-            playerY += playerSpeed;
-        }
-        if (kh.leftPressed) {
-            playerX -= playerSpeed;
-        }
-        if (kh.rightPressed) {
-            playerX += playerSpeed;
-        }
+        player.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -106,12 +118,33 @@ public class GamePanel extends JPanel implements Runnable{
         // provides more control over geometry, coordinate transformations,
         // color management, and text layout
         Graphics2D g2 = (Graphics2D) g;
-
-        g2.setColor(Color.white);
-        g2.fillRect(playerX, playerY, tileSize, tileSize);
+        tileM.draw(g2);
+        // object
+        for (int i = 0; i < obj.length; i++) {
+            if (obj[i] != null) {
+                obj[i].draw(g2, this);
+            }
+        }
+        player.draw(g2);
+        ui.draw(g2);
 
         // good practice to save some memory
         g2.dispose();
+    }
+
+    public void playMusic(int i) {
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+
+    public void stopMusic() {
+        music.stop();
+    }
+
+    public void playSE(int i) {
+        se.setFile(i);
+        se.play();
     }
 
 }
