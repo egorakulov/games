@@ -10,9 +10,14 @@ I want to build these games in a variety of languages, but as of right now I am 
 
 ## My Current Project
 
-#### 2D Platformer
+#### Dress the Penguin
 
-I am currently following a Youtube tutorial on how to build a 2D platformer. After I finish this tutorial I will take what I apply and build my own.
+There are 6 different islands on the map: the one you start on, and 5 more to explore. 
+The goal of the game is to build bridges to all the islands, collect all the clothes on each one, and dress the penguin. 
+All as fast as you can!
+Just started this project, should hopefully be done in 3 days. 
+
+
 
 ## Games Built so Far
 
