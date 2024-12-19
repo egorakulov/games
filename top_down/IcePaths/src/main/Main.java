@@ -1,8 +1,11 @@
-/* COPYRIGHT 2024 EGOR AKULOV
-Project IcePaths
+/*
+|--------------------------------|
+|   COPYRIGHT 2024 EGOR AKULOV   |
+|   Project IcePaths             |
+|--------------------------------|
 
 Current File: Main
-  Starts up the GamePanel
+  -> Starts up the GamePanel_
  */
 
 package main;

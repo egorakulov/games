@@ -1,3 +1,13 @@
+/*
+|--------------------------------|
+|   COPYRIGHT 2024 EGOR AKULOV   |
+|   Project IcePaths             |
+|--------------------------------|
+
+Current File: KeyHandler
+  -> Handles all keyboard input from user
+ */
+
 package main;
 
 import java.awt.event.KeyEvent;

@@ -1,4 +1,17 @@
+/*
+|--------------------------------|
+|   COPYRIGHT 2024 EGOR AKULOV   |
+|   Project IcePaths             |
+|--------------------------------|
+
+Current File: GamePanel
+  -> Essentially the main class of the whole game
+  -> Handles the game loop and calls upon everyone's draw and update methods
+ */
+
 package main;
+
+import entity.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,24 +20,24 @@ public class GamePanel extends JPanel implements Runnable {
     // SCREEN SETTINGS
     int originalTileSize = 16;
     int scale = 3;
-    int tileSize = originalTileSize * scale;
+    public int tileSize = originalTileSize * scale;
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
     public final int screenWidth = maxScreenCol * tileSize;
     public final int screenHeight = maxScreenRow * tileSize;
     int FPS = 60;
 
+    /* OTHER CLASSES AND STUFF
+    ----------------------------------------------------------------------
+     */
     // KEY HANDLER
     KeyHandler kh = new KeyHandler();
-
     // THREAD - keep track of time in game
     Thread gameThread;
 
-    /* FOR TESTING PURPOSES ONLY
-    MAKE SURE TO DELETE WHEN CONTINUING
-     */
-    int x = 100;
-    int y = 100;
+
+    // ENTITIES
+    Player player = new Player(this, kh);
 
     public GamePanel() {
         // DEFAULT SETTINGS
@@ -73,15 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // UPDATE PLAYER INFO
     public void update() {
-        if (kh.upPressed) {
-            y--;
-        } else if (kh.leftPressed) {
-            x--;
-        } else if (kh.downPressed) {
-            y++;
-        } else if (kh.rightPressed) {
-            x++;
-        }
+        player.update();
     }
 
     // DRAW EVERYTHING ONTO SCREEN
@@ -91,8 +96,6 @@ public class GamePanel extends JPanel implements Runnable {
         // Graphics2D: provides more control over geometry,
         // coordinate transformation, color management, and text layout
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.red);
-
-        g2.drawRect(x, y, tileSize, tileSize);
+        player.draw(g2);
     }
 }
