@@ -134,9 +134,11 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
-        // PLACING LOGS
+        // PLACING AND PICKING UP LOGS
         if (kh.kPressed) {
             placeLog();
+        } else if (kh.lPressed) {
+            pickUpLog();
         }
 
     }
@@ -166,16 +168,33 @@ public class Player extends Entity {
                     logThere = true;
                 }
             }
+            // make sure it is not cloud
+            if (gp.tm.mapTileNum[next[0]][next[1]] == 0) {
+                logThere = true;
+            }
             if (!logThere) {
                 for (int i = 0; i < gp.obj.length; i++) {
                     if (gp.obj[i].worldX == -100 && gp.obj[i].worldY == -100) {
                         gp.obj[i].worldX = worldX;
                         gp.obj[i].worldY = worldY;
                         hasLogs--;
-                        System.out.println("placed log at " + gp.obj[i].worldX + ", " + gp.obj[i].worldY);
                         break;
                     }
                 }
+            }
+        }
+    }
+
+    public void pickUpLog() {
+        int[] next = gp.nextTile.nextTile();
+        int worldX = next[0] * gp.tileSize;
+        int worldY = next[1] * gp.tileSize;
+        for (int i = 0; i < gp.obj.length; i++) {
+            if (gp.obj[i].worldX == worldX && gp.obj[i].worldY == worldY) {
+                hasLogs++;
+                gp.obj[i].worldX = -100;
+                gp.obj[i].worldY = -100;
+                break;
             }
         }
     }
