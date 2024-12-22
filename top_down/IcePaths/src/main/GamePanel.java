@@ -12,6 +12,7 @@ Current File: GamePanel
 package main;
 
 import entity.Player;
+import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +28,10 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = maxScreenRow * tileSize;
     int FPS = 60;
 
+    // WORLD SETTINGS: number of rows and columns in the world map
+    public final int maxWorldCol = 70;
+    public final int maxWorldRow = 70;
+
     /* OTHER CLASSES AND STUFF
     ----------------------------------------------------------------------
      */
@@ -34,10 +39,12 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler kh = new KeyHandler();
     // THREAD - keep track of time in game
     Thread gameThread;
+    // TILE MANAGER
+    TileManager tm = new TileManager(this);
 
 
     // ENTITIES
-    Player player = new Player(this, kh);
+    public Player player = new Player(this, kh);
 
     public GamePanel() {
         // DEFAULT SETTINGS
@@ -96,6 +103,7 @@ public class GamePanel extends JPanel implements Runnable {
         // Graphics2D: provides more control over geometry,
         // coordinate transformation, color management, and text layout
         Graphics2D g2 = (Graphics2D) g;
+        tm.draw(g2);
         player.draw(g2);
     }
 }

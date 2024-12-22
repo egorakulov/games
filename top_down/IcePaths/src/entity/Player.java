@@ -13,16 +13,24 @@ public class Player extends Entity {
     boolean hasBoots, hasHat, hasMittens;
     boolean prev2;
 
+    // WHERE WE DRAW CHARACTER ON SCREEN
+    public final int screenX;
+    public final int screenY;
+    public int hasLogs = 0;
+
     public Player(GamePanel gp, KeyHandler kh){
         this.gp = gp;
         this.kh = kh;
-        setDefaultValues();
+
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+        setDefaultValues();;
         getPlayerImage();
     }
 
     private void setDefaultValues() {
-        this.x = 100;
-        this.y = 100;
+        worldX = gp.tileSize * 35;
+        worldY = gp.tileSize * 25;
         this.speed = 4;
         this.direction = "down";
         hasBoots = false;
@@ -65,13 +73,13 @@ public class Player extends Entity {
 
             // MOVING THE CHARACTER
             if (direction.equals("up")) {
-                y -= speed;
+                worldY -= speed;
             } else if (direction.equals("left")) {
-                x -= speed;
+                worldX -= speed;
             } else if (direction.equals("down")) {
-                y += speed;
+                worldY += speed;
             } else if (direction.equals("right")) {
-                x += speed;
+                worldX += speed;
             }
 
             // UPDATING SPRITE COUNTER
@@ -99,38 +107,38 @@ public class Player extends Entity {
         switch (direction) {
             case "down":
                 if (spriteNumber == 0) {
-                    g2.drawImage(down0, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(down0, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 } else if (spriteNumber == 1) {
-                    g2.drawImage(down1, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(down1, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 } else if (spriteNumber == 2) {
-                    g2.drawImage(down2, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(down2, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 }
                 break;
             case "left":
                 if (spriteNumber == 0) {
-                    g2.drawImage(left0, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(left0, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 } else if (spriteNumber == 1) {
-                    g2.drawImage(left1, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(left1, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 } else if (spriteNumber == 2) {
-                    g2.drawImage(left2, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(left2, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 }
                 break;
             case "right":
                 if (spriteNumber == 0) {
-                    g2.drawImage(right0, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(right0, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 } else if (spriteNumber == 1) {
-                    g2.drawImage(right1, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(right1, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 } else if (spriteNumber == 2) {
-                    g2.drawImage(right2, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(right2, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 }
                 break;
             case "up":
                 if (spriteNumber == 0) {
-                    g2.drawImage(up0, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(up0, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 } else if (spriteNumber == 1) {
-                    g2.drawImage(up1, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(up1, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 } else if (spriteNumber == 2) {
-                    g2.drawImage(up2, x, y, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(up2, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 }
                 break;
         }
