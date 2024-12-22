@@ -27,5 +27,6 @@ public class Main {
 
         // STARTING GAME
         gp.startGameThread();
+        gp.setUpGame();
     }
 }

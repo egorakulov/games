@@ -1,4 +1,3 @@
-
 /*
 |--------------------------------|
 |   COPYRIGHT 2024 EGOR AKULOV   |
@@ -43,6 +42,7 @@ public class CollisionChecker {
                 tileNum1 = gp.tm.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tm.mapTileNum[entityRightCol][entityTopRow];
                 if (gp.tm.tile[tileNum1].collision || gp.tm.tile[tileNum2].collision) {
+                    // TODO: MAKE SURE YOU'RE NOT A LOG
                     entity.collisionOn = true;
                 }
                 break;
@@ -77,5 +77,11 @@ public class CollisionChecker {
                 }
                 break;
         }
+    }
+
+    // picks up log if on ice. if on water can walk on log
+    public boolean checkLog() {
+        // TODO: write checkLog
+        return false;
     }
 }

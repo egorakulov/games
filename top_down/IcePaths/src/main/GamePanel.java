@@ -12,6 +12,7 @@ Current File: GamePanel
 package main;
 
 import entity.Player;
+import object.Object;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -19,8 +20,8 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
     // SCREEN SETTINGS
-    int originalTileSize = 16;
-    int scale = 3;
+    final int originalTileSize = 16;
+    final int scale = 3;
     public int tileSize = originalTileSize * scale;
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
@@ -39,10 +40,15 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     TileManager tm = new TileManager(this);
     public CollisionChecker cc = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
+    public NextTile nextTile = new NextTile(this, kh);
 
 
     // ENTITIES
     public Player player = new Player(this, kh);
+
+    // OBJECTS
+    public Object obj[] = new Object[15];
 
     public GamePanel() {
         // DEFAULT SETTINGS
@@ -54,6 +60,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
 
+    // CALLED IN MAIN
+    public void setUpGame() {
+        aSetter.setObjects();
+    }
+
+    // CALLED IN MAIN
     public void startGameThread() {
         // starts a thread for this gamePanel = starts the clock
         // automatically calls run()
@@ -102,6 +114,26 @@ public class GamePanel extends JPanel implements Runnable {
         // coordinate transformation, color management, and text layout
         Graphics2D g2 = (Graphics2D) g;
         tm.draw(g2);
+        drawObjects(g2);
         player.draw(g2);
+        nextTile.draw(g2);
+
+        drawTileNumber(g2);
+
+        g2.dispose();
+    }
+
+    private void drawObjects(Graphics2D g2) {
+        for (int i = 0; i < obj.length; i++) {
+            if (obj[i] != null) {
+                obj[i].draw(g2, this);
+            }
+        }
+    }
+
+    private void drawTileNumber(Graphics2D g2) {
+        g2.setColor(Color.BLACK);
+        g2.setFont(new Font("Ariel", Font.PLAIN, 40));
+        g2.drawString((player.worldX / tileSize) + ", " + (player.worldY / tileSize), 40, 40);
     }
 }
