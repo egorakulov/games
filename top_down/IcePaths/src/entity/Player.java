@@ -1,3 +1,13 @@
+/*
+|--------------------------------|
+|   COPYRIGHT 2024 EGOR AKULOV   |
+|   Project IcePaths             |
+|--------------------------------|
+
+Current File: Player
+  -> represents the player
+ */
+
 package entity;
 
 import main.GamePanel;
@@ -24,13 +34,19 @@ public class Player extends Entity {
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+
+        // HIT BOX
+        solidArea = new Rectangle(12, 15, 24, 27);
+        solidAreaDefaultX = 12;
+        solidAreaDefaultY = 15;
+
         setDefaultValues();;
         getPlayerImage();
     }
 
     private void setDefaultValues() {
         worldX = gp.tileSize * 35;
-        worldY = gp.tileSize * 25;
+        worldY = gp.tileSize * 35;
         this.speed = 4;
         this.direction = "down";
         hasBoots = false;
@@ -71,15 +87,28 @@ public class Player extends Entity {
                 direction = "right";
             }
 
-            // MOVING THE CHARACTER
-            if (direction.equals("up")) {
-                worldY -= speed;
-            } else if (direction.equals("left")) {
-                worldX -= speed;
-            } else if (direction.equals("down")) {
-                worldY += speed;
-            } else if (direction.equals("right")) {
-                worldX += speed;
+            // CHECK TILE COLLISION
+            collisionOn = false;
+            gp.cc.checkTile(this);
+
+            // MOVING CHARACTER, IF APPLICABLE
+            // if no collision will occur based on where we are trying to go,
+            // can move
+            if (!collisionOn) {
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
             }
 
             // UPDATING SPRITE COUNTER

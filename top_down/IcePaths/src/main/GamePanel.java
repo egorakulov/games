@@ -35,12 +35,10 @@ public class GamePanel extends JPanel implements Runnable {
     /* OTHER CLASSES AND STUFF
     ----------------------------------------------------------------------
      */
-    // KEY HANDLER
     KeyHandler kh = new KeyHandler();
-    // THREAD - keep track of time in game
     Thread gameThread;
-    // TILE MANAGER
     TileManager tm = new TileManager(this);
+    public CollisionChecker cc = new CollisionChecker(this);
 
 
     // ENTITIES
