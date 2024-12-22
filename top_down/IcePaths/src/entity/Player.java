@@ -93,7 +93,7 @@ public class Player extends Entity {
 
             // CHECK LOG COLLISION
             int objIndex = gp.cc.checkLog(this, true);
-            pickUpObject(objIndex);
+            dealWithLog(objIndex);
 
             // MOVING CHARACTER, IF APPLICABLE
             // if no collision will occur based on where we are trying to go,
@@ -141,23 +141,40 @@ public class Player extends Entity {
 
     }
 
-    public void pickUpObject(int index) {
+    public void dealWithLog(int index) {
         if (index != 999) {
-            hasLogs++;
-            gp.obj[index].worldX = -100;
-            gp.obj[index].worldY = -100;
+            // if on ice
+            int col = gp.obj[index].worldX / gp.tileSize;
+            int row = gp.obj[index].worldY / gp.tileSize;
+            if (gp.tm.mapTileNum[col][row] == 1) {
+                hasLogs++;
+                gp.obj[index].worldX = -100;
+                gp.obj[index].worldY = -100;
+            }
         }
     }
 
     public void placeLog() {
         if (hasLogs > 0) {
+            int[] next = gp.nextTile.nextTile();
+            int worldX = next[0] * gp.tileSize;
+            int worldY = next[1] * gp.tileSize;
+            boolean logThere = false;
+            // make sure there is not already a log there
             for (int i = 0; i < gp.obj.length; i++) {
-                if (gp.obj[i].worldX == -100 && gp.obj[i].worldY == -100) {
-                    int[] next = gp.nextTile.nextTile();
-                    gp.obj[i].worldX = next[0] * gp.tileSize;
-                    gp.obj[i].worldY = next[1] * gp.tileSize;
-                    hasLogs--;
-                    break;
+                if (gp.obj[i].worldX == worldX && gp.obj[i].worldY == worldY) {
+                    logThere = true;
+                }
+            }
+            if (!logThere) {
+                for (int i = 0; i < gp.obj.length; i++) {
+                    if (gp.obj[i].worldX == -100 && gp.obj[i].worldY == -100) {
+                        gp.obj[i].worldX = worldX;
+                        gp.obj[i].worldY = worldY;
+                        hasLogs--;
+                        System.out.println("placed log at " + gp.obj[i].worldX + ", " + gp.obj[i].worldY);
+                        break;
+                    }
                 }
             }
         }

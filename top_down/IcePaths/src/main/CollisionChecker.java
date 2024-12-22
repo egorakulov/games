@@ -41,11 +41,20 @@ public class CollisionChecker {
                 // potential bug
                 tileNum1 = gp.tm.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tm.mapTileNum[entityRightCol][entityTopRow];
-                // general case
+
+                if (entityLeftCol == entityRightCol) {
+                    // lined up on a single tile
+                    if (tileNum1 == 2) {
+                        // on water
+                        // MAKE SURE YOU'RE ON A LOG
+                        if (nextIsLog(entityLeftCol, entityTopRow)) {
+                            entity.collisionOn = false;
+                            break;
+                        }
+                    }
+                }
                 if (gp.tm.tile[tileNum1].collision || gp.tm.tile[tileNum2].collision) {
-                    // TODO: MAKE SURE YOU'RE NOT A LOG
                     entity.collisionOn = true;
-                    break;
                 }
                 break;
             case "down":
@@ -54,6 +63,17 @@ public class CollisionChecker {
                 // potential bug
                 tileNum1 = gp.tm.mapTileNum[entityLeftCol][entityBottomRow];
                 tileNum2 = gp.tm.mapTileNum[entityRightCol][entityBottomRow];
+                if (entityLeftCol == entityRightCol) {
+                    // lined up on a single tile
+                    if (tileNum1 == 2) {
+                        // on water
+                        // MAKE SURE YOU'RE ON A LOG
+                        if (nextIsLog(entityLeftCol, entityBottomRow)) {
+                            entity.collisionOn = false;
+                            break;
+                        }
+                    }
+                }
                 if (gp.tm.tile[tileNum1].collision || gp.tm.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
@@ -64,6 +84,17 @@ public class CollisionChecker {
                 // potential bug
                 tileNum1 = gp.tm.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tm.mapTileNum[entityLeftCol][entityBottomRow];
+                if (entityTopRow == entityBottomRow) {
+                    // lined up on a single tile
+                    if (tileNum1 == 2) {
+                        // on water
+                        // MAKE SURE YOU'RE ON A LOG
+                        if (nextIsLog(entityLeftCol, entityTopRow)) {
+                            entity.collisionOn = false;
+                            break;
+                        }
+                    }
+                }
                 if (gp.tm.tile[tileNum1].collision || gp.tm.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
@@ -74,11 +105,33 @@ public class CollisionChecker {
                 // potential bug
                 tileNum1 = gp.tm.mapTileNum[entityRightCol][entityTopRow];
                 tileNum2 = gp.tm.mapTileNum[entityRightCol][entityBottomRow];
+                if (entityTopRow == entityBottomRow) {
+                    // lined up on a single tile
+                    if (tileNum1 == 2) {
+                        // on water
+                        // MAKE SURE YOU'RE ON A LOG
+                        if (nextIsLog(entityRightCol, entityTopRow)) {
+                            entity.collisionOn = false;
+                            break;
+                        }
+                    }
+                }
                 if (gp.tm.tile[tileNum1].collision || gp.tm.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
         }
+    }
+
+    public boolean nextIsLog(int col, int row) {
+        for (int i = 0; i < gp.obj.length; i++) {
+            int objCol = gp.obj[i].worldX / gp.tileSize;
+            int objRow = gp.obj[i].worldY / gp.tileSize;
+            if (col == objCol && row == objRow) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // picks up log if on ice. if on water can walk on log

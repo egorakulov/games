@@ -79,6 +79,6 @@ public class AssetSetter {
 
         gp.obj[14] = new Log_Horizontal();
         gp.obj[14].worldX = 50 * gp.tileSize;
-        gp.obj[14].worldY = 57 * gp.tileSize;
+        gp.obj[14].worldY = 52 * gp.tileSize;
     }
 }
