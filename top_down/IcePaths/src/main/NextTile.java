@@ -21,13 +21,11 @@ public class NextTile {
         this.kh = kh;
     }
 
+    // returns a {worldCol, worldRow} that the player is about to hit
     public int[] nextTile() {
-        // TODO: return a {x, y} of the next tile the player will hit
         String direction = gp.player.direction;
         int worldCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
         int worldRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
-
-        System.out.println("player worldCol:" + worldCol + ", worldRow: " + worldRow);
 
         switch (direction) {
             case "down":
@@ -43,13 +41,12 @@ public class NextTile {
                 worldCol++;
                 break;
         }
-        System.out.println("calculated worldCol: " + worldCol + ", worldRow: " + worldRow);
         int[] res = {worldCol, worldRow};
         return res;
     }
 
+    // draws an outline of what is the next tile, when j is pressed
     public void draw(Graphics2D g2) {
-        // TODO: draw an outline on the next tile
         if (kh.jPressed) {
             int[] res = nextTile();
             int worldCol = res[0];

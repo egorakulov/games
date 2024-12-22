@@ -91,6 +91,10 @@ public class Player extends Entity {
             collisionOn = false;
             gp.cc.checkTile(this);
 
+            // CHECK LOG COLLISION
+            int objIndex = gp.cc.checkLog(this, true);
+            pickUpObject(objIndex);
+
             // MOVING CHARACTER, IF APPLICABLE
             // if no collision will occur based on where we are trying to go,
             // can move
@@ -128,6 +132,33 @@ public class Player extends Entity {
                     prev2 = true;
                 }
                 spriteCounter = 0;
+            }
+        }
+        // PLACING LOGS
+        if (kh.kPressed) {
+            placeLog();
+        }
+
+    }
+
+    public void pickUpObject(int index) {
+        if (index != 999) {
+            hasLogs++;
+            gp.obj[index].worldX = -100;
+            gp.obj[index].worldY = -100;
+        }
+    }
+
+    public void placeLog() {
+        if (hasLogs > 0) {
+            for (int i = 0; i < gp.obj.length; i++) {
+                if (gp.obj[i].worldX == -100 && gp.obj[i].worldY == -100) {
+                    int[] next = gp.nextTile.nextTile();
+                    gp.obj[i].worldX = next[0] * gp.tileSize;
+                    gp.obj[i].worldY = next[1] * gp.tileSize;
+                    hasLogs--;
+                    break;
+                }
             }
         }
     }

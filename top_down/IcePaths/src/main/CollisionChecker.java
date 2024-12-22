@@ -41,9 +41,11 @@ public class CollisionChecker {
                 // potential bug
                 tileNum1 = gp.tm.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tm.mapTileNum[entityRightCol][entityTopRow];
+                // general case
                 if (gp.tm.tile[tileNum1].collision || gp.tm.tile[tileNum2].collision) {
                     // TODO: MAKE SURE YOU'RE NOT A LOG
                     entity.collisionOn = true;
+                    break;
                 }
                 break;
             case "down":
@@ -80,8 +82,80 @@ public class CollisionChecker {
     }
 
     // picks up log if on ice. if on water can walk on log
-    public boolean checkLog() {
-        // TODO: write checkLog
-        return false;
-    }
+    public int checkLog(Entity entity, boolean player) {
+        int index = 999;
+
+        for (int i = 0; i < gp.obj.length; i++) {
+            if (gp.obj[i] != null) {
+
+                // Get entity's solid area position
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+
+                // Get the object's solid area position
+                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
+                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidArea.y -= entity.speed;
+                        // automatically checks whether two rectangles are touching
+                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
+                            if (gp.obj[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player) {
+                                // only players can pick up objects
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "down":
+                        entity.solidArea.y += entity.speed;
+                        // automatically checks whether two rectangles are touching
+                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
+                            if (gp.obj[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player) {
+                                // only players can pick up objects
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x -= entity.speed;
+                        // automatically checks whether two rectangles are touching
+                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
+                            if (gp.obj[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player) {
+                                // only players can pick up objects
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.x += entity.speed;
+                        // automatically checks whether two rectangles are touching
+                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
+                            if (gp.obj[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player) {
+                                // only players can pick up objects
+                                index = i;
+                            }
+                        }
+                        break;
+                }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
+                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+            }
+        }
+        return index;
+                        }
 }
