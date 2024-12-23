@@ -34,7 +34,11 @@ The controls are a bit finnicky, which means there is room to improve on the nex
 
 Controls:
 
-WASD to move, J to highlight the next square, K to place log in water, L to pick up log from water
+- WASD to move
+- J to highlight the next square
+- K to place log in water, L to pick up log from water
+
+---
 
 #### Game of Life
 
