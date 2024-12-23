@@ -15,7 +15,7 @@ import java.io.IOException;
 public class Log_Horizontal extends Object{
 
     public Log_Horizontal() {
-        name = "log_horizontal";
+        name = "log";
         try {
             image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("objects/log_horizontal.png"));
         } catch (IOException e) {

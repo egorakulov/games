@@ -5,7 +5,8 @@
 |--------------------------------|
 
 Current File: Player
-  -> represents the player
+  -> represents the player and everything the player can do
+  -> including picking up and putting down logs
  */
 
 package entity;
@@ -56,21 +57,142 @@ public class Player extends Entity {
     }
 
     private void getPlayerImage() {
-        try {
-            down0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_down_0.png"));
-            down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_down_1.png"));
-            down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_down_2.png"));
-            left0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_left_0.png"));
-            left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_left_1.png"));
-            left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_left_2.png"));
-            right0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_right_0.png"));
-            right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_right_1.png"));
-            right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_right_2.png"));
-            up0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_up_0.png"));
-            up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_up_1.png"));
-            up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_up_2.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!hasBoots && !hasHat && !hasMittens) {
+            try {
+                down0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_down_0.png"));
+                down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_down_1.png"));
+                down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_down_2.png"));
+                left0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_left_0.png"));
+                left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_left_1.png"));
+                left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_left_2.png"));
+                right0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_right_0.png"));
+                right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_right_1.png"));
+                right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_right_2.png"));
+                up0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_up_0.png"));
+                up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_up_1.png"));
+                up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/naked/penguin_naked_up_2.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (hasBoots && !hasHat && !hasMittens) {
+            try {
+                down0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_down_0.png"));
+                down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_down_1.png"));
+                down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_down_2.png"));
+                left0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_left_0.png"));
+                left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_left_1.png"));
+                left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_left_2.png"));
+                right0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_right_0.png"));
+                right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_right_1.png"));
+                right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_right_2.png"));
+                up0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_up_0.png"));
+                up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_up_1.png"));
+                up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/boots/penguin_boots_up_2.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (!hasBoots && hasHat && !hasMittens) {
+            try {
+                down0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_down_0.png"));
+                down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_down_1.png"));
+                down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_down_2.png"));
+                left0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_left_0.png"));
+                left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_left_1.png"));
+                left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_left_2.png"));
+                right0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_right_0.png"));
+                right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_right_1.png"));
+                right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_right_2.png"));
+                up0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_up_0.png"));
+                up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_up_1.png"));
+                up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hat/penguin_hat_up_2.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (!hasBoots && !hasHat && hasMittens) {
+            try {
+                down0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_down_0.png"));
+                down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_down_1.png"));
+                down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_down_2.png"));
+                left0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_left_0.png"));
+                left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_left_1.png"));
+                left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_left_2.png"));
+                right0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_right_0.png"));
+                right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_right_1.png"));
+                right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_right_2.png"));
+                up0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_up_0.png"));
+                up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_up_1.png"));
+                up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/mittens/penguin_mittens_up_2.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (hasBoots && hasHat && !hasMittens) {
+            try {
+                down0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_down_0.png"));
+                down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_down_1.png"));
+                down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_down_2.png"));
+                left0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_left_0.png"));
+                left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_left_1.png"));
+                left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_left_2.png"));
+                right0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_right_0.png"));
+                right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_right_1.png"));
+                right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_right_2.png"));
+                up0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_up_0.png"));
+                up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_up_1.png"));
+                up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bh/penguin_bh_up_2.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (hasBoots && !hasHat && hasMittens) {
+            try {
+                down0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_bm_down_0.png"));
+                down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_bm_down_1.png"));
+                down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_bm_down_2.png"));
+                left0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_bm_left_0.png"));
+                left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_bm_left_1.png"));
+                left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_bm_left_2.png"));
+                right0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_bm_right_0.png"));
+                right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_bm_right_1.png"));
+                right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_bm_right_2.png"));
+                up0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_bm_up_0.png"));
+                up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_bm_up_1.png"));
+                up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bm/penguin_nm_up_2.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (!hasBoots && hasHat && hasMittens) {
+            try {
+                down0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_down_0.png"));
+                down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_down_1.png"));
+                down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_down_2.png"));
+                left0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_left_0.png"));
+                left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_left_1.png"));
+                left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_left_2.png"));
+                right0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_right_0.png"));
+                right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_right_1.png"));
+                right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_right_2.png"));
+                up0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_up_0.png"));
+                up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_up_1.png"));
+                up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/hm/penguin_hm_up_2.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                down0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_down_0.png"));
+                down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_down_1.png"));
+                down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_down_2.png"));
+                left0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_left_0.png"));
+                left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_left_1.png"));
+                left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_left_2.png"));
+                right0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_right_0.png"));
+                right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_right_1.png"));
+                right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_right_2.png"));
+                up0 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_up_0.png"));
+                up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_up_1.png"));
+                up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("player/bhm/penguin_bhm_up_2.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -145,13 +267,46 @@ public class Player extends Entity {
 
     public void dealWithLog(int index) {
         if (index != 999) {
-            // if on ice
-            int col = gp.obj[index].worldX / gp.tileSize;
-            int row = gp.obj[index].worldY / gp.tileSize;
-            if (gp.tm.mapTileNum[col][row] == 1) {
-                hasLogs++;
-                gp.obj[index].worldX = -100;
-                gp.obj[index].worldY = -100;
+            String name = gp.obj[index].name;
+            switch (name) {
+                case "log":
+                    // if on ice
+                    int col = gp.obj[index].worldX / gp.tileSize;
+                    int row = gp.obj[index].worldY / gp.tileSize;
+                    if (gp.tm.mapTileNum[col][row] == 1) {
+                        hasLogs++;
+                        gp.obj[index].worldX = -100;
+                        gp.obj[index].worldY = -100;
+                    }
+                    break;
+                case "boots":
+                    hasBoots = true;
+                    gp.obj[index].worldX = -100;
+                    gp.obj[index].worldY = -100;
+                    getPlayerImage();
+                    gp.ui.showMessage("Boots picked up!");
+                    break;
+                case "hat":
+                    hasHat = true;
+                    gp.obj[index].worldX = -100;
+                    gp.obj[index].worldY = -100;
+                    getPlayerImage();
+                    gp.ui.showMessage("Hat picked up!");
+                    break;
+                case "mittens":
+                    hasMittens = true;
+                    gp.obj[index].worldX = -100;
+                    gp.obj[index].worldY = -100;
+                    getPlayerImage();
+                    gp.ui.showMessage("Mittens picked up!");
+                    break;
+                case "coin":
+                    if (hasHat && hasMittens && hasBoots) {
+                        gp.ui.gameFinished = true;
+                    } else {
+                        gp.ui.showMessage("Need boots, hat, and mittens");
+                    }
+                    break;
             }
         }
     }
@@ -165,7 +320,9 @@ public class Player extends Entity {
             // make sure there is not already a log there
             for (int i = 0; i < gp.obj.length; i++) {
                 if (gp.obj[i].worldX == worldX && gp.obj[i].worldY == worldY) {
-                    logThere = true;
+                    if (gp.obj[i].name.equals("log")) {
+                        logThere = true;
+                    }
                 }
             }
             // make sure it is not cloud
@@ -190,7 +347,7 @@ public class Player extends Entity {
         int worldX = next[0] * gp.tileSize;
         int worldY = next[1] * gp.tileSize;
         for (int i = 0; i < gp.obj.length; i++) {
-            if (gp.obj[i].worldX == worldX && gp.obj[i].worldY == worldY) {
+            if (gp.obj[i].worldX == worldX && gp.obj[i].worldY == worldY && gp.obj[i].name.equals("log")) {
                 hasLogs++;
                 gp.obj[i].worldX = -100;
                 gp.obj[i].worldY = -100;

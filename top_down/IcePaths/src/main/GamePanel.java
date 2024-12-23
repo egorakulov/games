@@ -42,13 +42,14 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cc = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public NextTile nextTile = new NextTile(this, kh);
+    public UI ui = new UI(this);
 
 
     // ENTITIES
     public Player player = new Player(this, kh);
 
     // OBJECTS
-    public Object obj[] = new Object[15];
+    public Object obj[] = new Object[19];
 
     public GamePanel() {
         // DEFAULT SETTINGS
@@ -117,8 +118,7 @@ public class GamePanel extends JPanel implements Runnable {
         drawObjects(g2);
         player.draw(g2);
         nextTile.draw(g2);
-
-        drawTileNumber(g2);
+        ui.draw(g2);
 
         g2.dispose();
     }
@@ -131,9 +131,4 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    private void drawTileNumber(Graphics2D g2) {
-        g2.setColor(Color.BLACK);
-        g2.setFont(new Font("Ariel", Font.PLAIN, 40));
-        g2.drawString((player.worldX / tileSize) + ", " + (player.worldY / tileSize), 40, 40);
-    }
 }
