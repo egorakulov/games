@@ -10,16 +10,31 @@ I want to build these games in a variety of languages, but as of right now I am 
 
 ## My Current Project
 
-#### Dress the Penguin
-
-There are 6 different islands on the map: the one you start on, and 5 more to explore. 
-The goal of the game is to build bridges to all the islands, collect all the clothes on each one, and dress the penguin. 
-All as fast as you can!
-Just started this project, should hopefully be done in 3 days. 
-
+As of right now I am between projects! 
+I think the next one I do will be a platformer, but I have not finished figuring out what exactly it will be. 
+I am thinking of trying to have a bigger sprite (maybe 32 bits, maybe 64) and a more fleshed out map. 
+It will be a simple platformer though, just kind of jumping between things. Mostly for me to learn more. 
 
 
 ## Games Built so Far
+
+#### Dress the Penguin
+
+Tech Stack: Java
+
+There are 6 different islands on the map: the one you start on, and 5 more to explore. 
+Hidden randomly on the map (on the islands) are boots, mittens, and a hat.
+The goal of the game is to have your penguin put on the boots, mittens, and hat and get the cold coin that is somewhere on the map.
+To travel between islands, you can place logs in the water. You can also pick up logs that are in the water.
+All as fast as you can!
+
+I am very proud of this project. I had watched a Youtube tutorial that taught me the basics of top down 2D game development such as collision detection and how to draw the map.
+But after that I was on my own. 
+The controls are a bit finnicky, which means there is room to improve on the next project. 
+
+Controls:
+
+WASD to move, J to highlight the next square, K to place log in water, L to pick up log from water
 
 #### Game of Life
 
