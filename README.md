@@ -48,6 +48,8 @@ Conaly's Game of Life, complete with an intro screen explaining the rules and a 
 Can reset the simulation, stop it, and navigate between screens. 
 Spent way too long playing around in it creating cool patterns and seeing what happens. :)
 
+---
+
 #### Pong
 
 Tech stack: Java
@@ -56,6 +58,8 @@ A replica of the classic Pong game.
 Requires two players. 
 Complete with an introductory screen that explains rules and how to operate the program, and a game over screen where the user can press y to play again. 
 Runs at 60 frames per second.  
+
+---
 
 #### Snake
 
